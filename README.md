@@ -12,7 +12,7 @@ BinaryTree binaryTree = new BinaryTree(15);
 binaryTree.insert(10);
 
 ## Delete from the tree
-// deletes 15 from the tree, if 15 is in the tree
+// deletes 15 from the tree, if 15 is in the tree, replacing with in-order successor, if it exists
 
 binaryTree.delete(15);
 
