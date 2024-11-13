@@ -24,15 +24,15 @@ List\<Node\> inOrderNodes = binaryTree.inOrderTraversal();
 # Pre order traversal
 // returns a list of nodes in pre-order order
 
-List<Node> preOrderNodes = binaryTree.preOrderTraversal();
+List\<Node\> preOrderNodes = binaryTree.preOrderTraversal();
 
 # Post order traversal
 // returns a list of nodes in post-order order
 
-List<Node> postOrderNodes = binaryTree.postOrderTraversal();
+List\<Node\> postOrderNodes = binaryTree.postOrderTraversal();
 
 # Breadth first traversal
 // returns a list of nodes in breadth first traversal order
 
-List<Node> breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
+List\<Node\> breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
 
