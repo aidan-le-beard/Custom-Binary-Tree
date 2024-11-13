@@ -19,7 +19,7 @@ binaryTree.delete(15);
 ## In order traversal
 // returns a list of nodes in in-order order
 
-List<Node> inOrderNodes = binaryTree.inOrderTraversal();
+List\<Node\> inOrderNodes = binaryTree.inOrderTraversal();
 
 # Pre order traversal
 // returns a list of nodes in pre-order order
