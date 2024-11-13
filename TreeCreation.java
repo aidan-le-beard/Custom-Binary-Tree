@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class TreeCreation {
+public class TreeCreation3 {
     public static void main(String[] args) {
 
         // create a binary tree and insert some data
@@ -256,7 +256,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
 
         // we need to know our in-order successor to delete
         fillInOrderSuccessors(this);
-        delete(data, this, this); // call delete
+        delete(data, this); // call delete
 
         // parents and levels may have changed after deletion, so recalculate
         this.fillParentsAndLevel();
@@ -265,7 +265,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     /**
      * deletes node, replacing node with in-order successor
      */
-    private void delete(int data, Node node, BinaryTree rootNode) {
+    private void delete(int data, Node node) {
 
         // base case
         if (node == null) {
@@ -277,6 +277,8 @@ class BinaryTree extends Node implements BinaryTreeInterface {
 
             // if both children are null, just set parent's pointer to node as null
             if (node.left == null && node.right == null) {
+
+                // see if left or right from parent is the found node
                 if (node.parent.left == node) {
                     node.parent.left = null;
                 } else {
@@ -336,8 +338,8 @@ class BinaryTree extends Node implements BinaryTreeInterface {
         }
 
         // recurse to find data requested to delete
-        delete(data, node.left, rootNode);
-        delete(data, node.right, rootNode);
+        delete(data, node.left);
+        delete(data, node.right);
 
     }
 
