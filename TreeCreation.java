@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class TreeCreation3 {
+public class TreeCreation {
     public static void main(String[] args) {
 
         // create a binary tree and insert some data
