@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class TreeCreation {
+public class TreeCreation3 {
     public static void main(String[] args) {
 
         // create a binary tree and insert some data
@@ -44,18 +44,6 @@ public class TreeCreation {
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
         System.out.println();
 
-        binaryTree.delete(15);
-        System.out.println("Breadth first order: deleting 15");
-        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
-        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
-        System.out.println();
-
-        binaryTree.delete(22);
-        System.out.println("Breadth first order: deleting 22");
-        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
-        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
-        System.out.println();
-
         binaryTree.delete(20);
         System.out.println("Breadth first order: deleting 20");
         breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
@@ -76,6 +64,24 @@ public class TreeCreation {
 
         binaryTree.delete(36);
         System.out.println("Breadth first order: deleting 36");
+        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
+        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
+        System.out.println();
+
+        binaryTree.delete(10);
+        System.out.println("Breadth first order: deleting 10");
+        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
+        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
+        System.out.println();
+
+        binaryTree.delete(19);
+        System.out.println("Breadth first order: deleting 19");
+        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
+        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
+        System.out.println();
+
+        binaryTree.delete(18);
+        System.out.println("Breadth first order: deleting 18");
         breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
         System.out.println();
@@ -102,7 +108,13 @@ class BinaryTree extends Node implements BinaryTreeInterface {
      */
     @Override
     public void insert(int data) {
-        insert(data, this);
+
+        if (this.data == null) {
+            this.data = data;
+        } else {
+            insert(data, this);
+        }
+
         this.fillParentsAndLevel(); // fill in level and parents of inserted and all data
     }
 
@@ -254,6 +266,11 @@ class BinaryTree extends Node implements BinaryTreeInterface {
      */
     void delete(int data) {
 
+        if (this.data == null || (this.data == data && this.left == null && this.right == null)) {
+            this.data = null;
+            return;
+        }
+
         // we need to know our in-order successor to delete
         fillInOrderSuccessors(this);
         delete(data, this); // call delete
@@ -275,19 +292,8 @@ class BinaryTree extends Node implements BinaryTreeInterface {
         // if we've found a matching node to delete
         if (node.data == data) {
 
-            // if both children are null, just set parent's pointer to node as null
-            if (node.left == null && node.right == null) {
-
-                // see if left or right from parent is the found node
-                if (node.parent.left == node) {
-                    node.parent.left = null;
-                } else {
-                    node.parent.right = null;
-                }
-                return;
-
-                // if both children aren't null
-            } else if (node.left != null && node.right != null) {
+            // if both children aren't null
+            if (node.left != null && node.right != null) {
 
                 // if we're reordering by moving successor up in the tree
                 if (node.inOrderSuccessor.parent != node) {
@@ -317,21 +323,34 @@ class BinaryTree extends Node implements BinaryTreeInterface {
 
                 return;
 
-                // else if only the left isn't null, move up our left
-            } else if (node.left != null) {
-                if (node.parent.right == node) {
-                    node.parent.right = node.left;
-                } else {
-                    node.parent.left = node.left;
-                }
-                return;
+                // else if the left is null, move up our left
+            } else if (node.parent == null) {
 
-                // else if only the right isn't null, move up our right
-            } else if (node.right != null) {
+                if (node.left == null) {
+                    node.data = node.right.data;
+                    node.left = node.right.left;
+                    node.right = node.right.right;
+                } else {
+                    node.data = node.left.data;
+                    node.left = node.left.left;
+                    node.right = node.left.right;
+                }
+
+            } else if (node.left == null) {
+
                 if (node.parent.right == node) {
                     node.parent.right = node.right;
                 } else {
                     node.parent.left = node.right;
+                }
+                return;
+
+                // else if the right is null, move up our right
+            } else if (node.right == null) {
+                if (node.parent.right == node) {
+                    node.parent.right = node.left;
+                } else {
+                    node.parent.left = node.left;
                 }
                 return;
             }
@@ -363,7 +382,7 @@ class Node {
     Node left;
     Node right;
     int level;
-    int data;
+    Integer data;
     Node parent;
     Node inOrderSuccessor;
 
