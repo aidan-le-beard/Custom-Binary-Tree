@@ -94,7 +94,7 @@ public class TreeCreation {
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
         System.out.println();
 
-        binaryTree.delete(1);
+        binaryTree.delete(18);
         System.out.println("Breadth first order: deleting 18");
         breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
