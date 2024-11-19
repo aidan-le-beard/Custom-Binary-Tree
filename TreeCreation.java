@@ -23,6 +23,8 @@ public class TreeCreation {
         binaryTree.insert(33);
         binaryTree.insert(22);
         binaryTree.insert(24);
+        binaryTree.insert(3);
+        binaryTree.insert(1);
 
         System.out.println("In Order:");
         List<Node> inOrderNodes = binaryTree.inOrderTraversal();
@@ -68,8 +70,20 @@ public class TreeCreation {
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
         System.out.println();
 
+        binaryTree.delete(15);
+        System.out.println("Breadth first order: deleting 15");
+        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
+        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
+        System.out.println();
+
         binaryTree.delete(10);
         System.out.println("Breadth first order: deleting 10");
+        breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
+        breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
+        System.out.println();
+
+        binaryTree.delete(18);
+        System.out.println("Breadth first order: deleting 18");
         breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
         System.out.println();
@@ -80,7 +94,7 @@ public class TreeCreation {
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
         System.out.println();
 
-        binaryTree.delete(18);
+        binaryTree.delete(1);
         System.out.println("Breadth first order: deleting 18");
         breadthFirstOrderNodes = binaryTree.breadthFirstTraversal();
         breadthFirstOrderNodes.stream().forEach(node -> System.out.print(node.data + " (lvl: " + node.level + "), "));
@@ -115,8 +129,11 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     @Override
     public void insert(int data) {
 
+        // if root node is null, set root node data
         if (this.data == null) {
             this.data = data;
+
+            // else, find where to insert the data
         } else {
             insert(data, this);
         }
@@ -177,7 +194,6 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     }
 
     /**
-     * 
      * Returns a list of nodes in pre-order, in-order, or post-order order, based on
      * input given
      * 
