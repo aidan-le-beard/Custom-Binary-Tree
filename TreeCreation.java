@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class TreeCreation3 {
+public class TreeCreation {
     public static void main(String[] args) {
 
         // create a binary tree and insert some data
@@ -96,15 +96,21 @@ public class TreeCreation3 {
 class BinaryTree extends Node implements BinaryTreeInterface {
 
     /**
-     * constructor, call superconstructor for superclass then fill parents and level
+     * Constructor, call superconstructor for superclass then fill parent and level
+     * of nodes in tree (in this case only the root node).
+     * 
+     * @param data The int value for the root node.
      */
     BinaryTree(int data) {
         super(data);
-        this.fillParentsAndLevel(); // fill in level and parents of root data
+        this.fillParentsAndLevel(); // fill in level and parent of root data
     }
 
     /**
-     * Override implemented interface, calls insert on this
+     * Override implemented interface, calls overloaded insert on "this," allowing
+     * us to insert data into the tree just using .insert(5).
+     * 
+     * @param data The int value to be inserted into the tree.
      */
     @Override
     public void insert(int data) {
@@ -115,12 +121,16 @@ class BinaryTree extends Node implements BinaryTreeInterface {
             insert(data, this);
         }
 
-        this.fillParentsAndLevel(); // fill in level and parents of inserted and all data
+        this.fillParentsAndLevel(); // fill in level and parent of inserted and all data
     }
 
     /**
      * Inserts a new node if a node with this data does not already exist in the
-     * tree
+     * tree. This overloaded method called by overridden insert(int data) method.
+     * 
+     * @param data The int value to be inserted into the tree.
+     * @param node The current iteration node to check if value can be inserted as a
+     *             child of.
      */
     private void insert(int data, Node node) {
 
@@ -140,29 +150,42 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     }
 
     /**
-     * Calls traverse to return in-order list of nodes
+     * Calls traverse with parameter to return in-order list of nodes.
+     * 
+     * @return Returns a list of nodes in in-order traversal order.
      */
     List<Node> inOrderTraversal() {
         return traverse(this, "inOrder", new ArrayList<>());
     }
 
     /**
-     * Calls traverse to return pre-order list of nodes
+     * Calls traverse with parameter to return pre-order list of nodes.
+     * 
+     * @return Returns a list of nodes in pre-order traversal order.
      */
     List<Node> preOrderTraversal() {
         return traverse(this, "preOrder", new ArrayList<>());
     }
 
     /**
-     * Calls traverse to return post-order list of nodes
+     * Calls traverse with parameter to return post-order list of nodes.
+     * 
+     * @return Returns a list of nodes in post-order traversal order.
      */
     List<Node> postOrderTraversal() {
         return traverse(this, "postOrder", new ArrayList<>());
     }
 
     /**
+     * 
      * Returns a list of nodes in pre-order, in-order, or post-order order, based on
      * input given
+     * 
+     * @param node      Current node of traversal.
+     * @param traversal A string representing the traversal wanted: inOrder,
+     *                  preOrder, or postOrder.
+     * @param nodes     The list of nodes in order requested.
+     * @return The finished list of nodes in the desired traversal order.
      */
     private List<Node> traverse(Node node, String traversal, List<Node> nodes) {
 
@@ -195,8 +218,10 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     }
 
     /**
-     * Calls breadth first traversal for the root node, translates the tree map to a
-     * list, and returns the list
+     * Calls overloaded breadthFirstTraversal for the root node, translates the
+     * returned TreeMap to a list, and returns the list.
+     * 
+     * @return List of Nodes in breadth first traversal order.
      */
     List<Node> breadthFirstTraversal() {
 
@@ -217,6 +242,18 @@ class BinaryTree extends Node implements BinaryTreeInterface {
      * Returns a tree map of nodes in breadth first traversal order, where the key
      * is the level, and each level has a list of nodes on that level--in order,
      * left to right. Also fills in each node's parent and level
+     * 
+     * @param node  The current node of the traversal.
+     * @param nodes A TreeMap of the nodes in breadth first traversal order, keeping
+     *              track of the nodes by traversing left to right and adding to a
+     *              list separating based on level, with the map being
+     *              TreeMap<Level, List<Node> L->R> to maintain order. TreeMap can
+     *              then be iterated by Level:List Order to get breadth first
+     *              traversal order.
+     * @param level The level the node in the binary tree is at, starting at 0.
+     * @return A TreeMap in breadth first traversal order if iterated over entries
+     *         by key (level, naturally in top to bottom order) and value (List,
+     *         naturally in left -> right order)
      */
     private TreeMap<Integer, List<Node>> breadthFirstTraversal(Node node, TreeMap<Integer, List<Node>> nodes,
             int level) {
@@ -229,7 +266,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
         // set the level
         node.level = level;
 
-        // set this node as the children's parents, if they exist
+        // set this node as the children's parent, if they exist
         if (node.left != null) {
             node.left.parent = node;
         }
@@ -253,16 +290,18 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     }
 
     /**
-     * Fills in the parents and the level of each node, by using breadth first
-     * traversal
+     * Fills in the parent and the level of each node, by using breadth first
+     * traversal method, which fills in level and parent.
      */
     private void fillParentsAndLevel() {
         breadthFirstTraversal(this, new TreeMap<>(), 0);
     }
 
     /**
-     * Calls delete on the root node, and then fills back in parents and levels
-     * after deletion, due to node reordering
+     * Calls overloaded delete on the root node, and then fills back in parent and
+     * levels after deletion, due to node reordering.
+     * 
+     * @param data The integer value to be deleted from the tree.
      */
     void delete(int data) {
 
@@ -280,7 +319,12 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     }
 
     /**
-     * deletes node, replacing node with in-order successor
+     * Deletes node if it exists, replacing node with in-order successor, if it
+     * exists. This overloaded method is called by other method that is more simple
+     * to call for the user.
+     * 
+     * @param data The integer value to search for to delete from the tree.
+     * @param node The current node in the tree iteration.
      */
     private void delete(int data, Node node) {
 
@@ -310,10 +354,10 @@ class BinaryTree extends Node implements BinaryTreeInterface {
 
                     // set deleted node's parent's left/right to the successor,
                     // depending on which way the deleted node is
-                    if (node.inOrderSuccessor.parent.parent.left == node) {
-                        node.inOrderSuccessor.parent.parent.left = node.inOrderSuccessor;
+                    if (node.parent.left == node) {
+                        node.parent.left = node.inOrderSuccessor;
                     } else {
-                        node.inOrderSuccessor.parent.parent.right = node.inOrderSuccessor;
+                        node.parent.right = node.inOrderSuccessor;
                     }
 
                     // set our left (we know it's null currently due to being in-order successor,
@@ -323,7 +367,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
 
                 return;
 
-                // else if the left is null, move up our left
+                // else if we're the root node (don't have a parent)
             } else if (node.parent == null) {
 
                 if (node.left == null) {
@@ -336,6 +380,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
                     node.right = node.left.right;
                 }
 
+                // else if the left is null, move up our left
             } else if (node.left == null) {
 
                 if (node.parent.right == node) {
@@ -363,10 +408,17 @@ class BinaryTree extends Node implements BinaryTreeInterface {
     }
 
     /**
-     * Fills in in-order successors of each node
+     * Fills in in-order successors of each node.
+     * 
+     * @param rootNode The root node (any binary tree object that has been created
+     *                 is a root node, as it extends Node).
      */
     private void fillInOrderSuccessors(BinaryTree rootNode) {
+
+        // get the list of nodes in the tree in in-order order
         List<Node> inOrder = rootNode.inOrderTraversal();
+
+        // iterate over them and set their in order successor attribute
         for (int i = 0; i < inOrder.size() - 1; i++) {
             inOrder.get(i).inOrderSuccessor = inOrder.get(i + 1);
         }
@@ -386,9 +438,15 @@ class Node {
     Node parent;
     Node inOrderSuccessor;
 
+    /**
+     * Constructor method creates a Node and sets its initial values.
+     * 
+     * @param data
+     */
     Node(int data) {
         this.left = null;
         this.right = null;
+        this.parent = null;
         this.data = data;
         this.inOrderSuccessor = null;
     }
@@ -399,5 +457,11 @@ class Node {
  * interface to implement insert method
  */
 interface BinaryTreeInterface {
+
+    /**
+     * Method to be implemented, to insert data into the binary tree.
+     * 
+     * @param data Data to be inserted into the tree.
+     */
     public void insert(int data);
 }
