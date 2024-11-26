@@ -205,6 +205,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
      */
     private List<Node> traverse(Node node, String traversal, List<Node> nodes) {
 
+        // base case
         if (node == null) {
             return nodes;
         }
@@ -395,6 +396,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
                     node.left = node.left.left;
                     node.right = node.left.right;
                 }
+                return;
 
                 // else if the left is null, move up our left
             } else if (node.left == null) {
