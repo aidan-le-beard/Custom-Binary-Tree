@@ -292,12 +292,7 @@ class BinaryTree extends Node implements BinaryTreeInterface {
         }
 
         // if this level isn't a key in the tree map, add it and the node as a new list
-        if (nodes.get(level) == null) {
-            nodes.put(level, new ArrayList<>(List.of(node)));
-            // else add this node to the existing level key
-        } else {
-            nodes.get(level).add(node);
-        }
+        nodes.computeIfAbsent(level, k -> new ArrayList<>()).add(node);
 
         // continue recursion, adding 1 to level for the next deeper level
         breadthFirstTraversal(node.left, nodes, level + 1);
